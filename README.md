@@ -21,4 +21,4 @@ En este proyecto se abarcan los temas obtenidos en el Laboratoria siendo:
 
 ## CONTACTO 
 
-    📩  [3034161730108@ingenieria.usac.edu.gt](https://mail.google.com/mail/u/1/#inbox)
+    📩  3034161730108@ingenieria.usac.edu.gt
