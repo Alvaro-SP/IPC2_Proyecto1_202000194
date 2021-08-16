@@ -1,5 +1,5 @@
 # -IPC2_Proyecto1_202000194
-## 🥇🥇🥇🥇🤗🤗🤗  Bienvenido a mi Proyecto #1 🤗🤗🤗🥇🥇🥇🥇
+## 🥇🥇🥇🥇🤗🤗🤗  Bienvenid@ a mi Proyecto #1 🤗🤗🤗🥇🥇🥇🥇
 
 ## 🚀
 Este es mi Primer Poryecto del curso Introducción a la programación y computación 2 sección E del segundo semestre 2021.
