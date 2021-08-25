@@ -2,11 +2,13 @@ from xml.dom.minidom import DOMImplementation
 from xml.dom import minidom # !Here we have the imports of the libraries for to start the proyect :)
 from nodos import *
 from Headers import *
-from graphviz import *
+#from graphviz import *
 from matriz import *
 from cargar import *
 from LinkedList import *
 import os
+import xml.etree.ElementTree as ET
+from xml.etree import ElementTree
 
 
 class main_proyecto1():# * i create the principal class  
@@ -52,22 +54,28 @@ class main_proyecto1():# * i create the principal class
     posfin_y_land_list=LinkedList()
 
     position_x_list=LinkedList()   #? todas las posiciones de las mega matrices
+
     position_y_list=LinkedList()
 
     lagasolinaxd=LinkedList()     #? valor de la gasolina de las matrices
     
     dimension_list_x=LinkedList()  #?dimensiones de la matriz
+
     dimension_list_y=LinkedList()  
 
     contador_terrenos=0
 
+    
+
     def cargarxml(self):        # ! 1.  Cargar Archivo --->
-        
+       
         # ? Aqui se carga el archivo XML completo
         try:
             myxml=minidom.parse(input("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Ingrese la ruta del Archivo  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n'))            
+            
             lands_all=myxml.getElementsByTagName('terrenos')    # * se guarda en una variable todo el xml
             
+
             for lands in lands_all:    # ? FOR que recorre todos los terrenos            
                 land_all = lands.getElementsByTagName('terreno')  
                 
@@ -114,22 +122,22 @@ class main_proyecto1():# * i create the principal class
                         
                         position_x=positionunit.getAttribute('x') #* extraigo las X de posicion
                         position_y=positionunit.getAttribute('y')  #* extraigo las Y de posicion
-                        print("\033[1;37m"+"     Posicion:  (",position_x,",",position_y,")"+'\033[0;m')
+                        #print("\033[1;37m"+"     Posicion:  (",position_x,",",position_y,")"+'\033[0;m')
                         self.position_x_list.My_Append(int(position_x)) #* agrego las X Y en mi lista que cree para guardarlas
                         self.position_y_list.My_Append(int(position_y))
                         gasolinas = positionunit.firstChild.nodeValue #* OJO aqui obtengo los valores de la gasolina de cada coordenada.
                         gasolina = str(gasolinas)                        
                         self.lagasolinaxd.My_Append(gasolina)
-                        print("\033[1;37m"+"         ",gasolina," "+'\033[0;m')
+                        #print("\033[1;37m"+"         ",gasolina," "+'\033[0;m')
                         # ! probando utilizar la matriz ortogonal:
+                        
                         position_Matriz.insert(int(position_x),int(position_y),gasolina)
                         
 
 
-                    print("\033[1;37m"+"fila, columna, valor de gas"+'\033[0;m')
+                    #print("\033[1;37m"+"fila, columna, valor de gas"+'\033[0;m')
 
                     position_Matriz.recorrerows()
-
 
             global positions_ordered_x
             global positions_ordered_y
@@ -137,52 +145,52 @@ class main_proyecto1():# * i create the principal class
 
             print("\n \n ")
             print("--------------------------------------------------------------")
-            print("POSICIÓN INICIAL COORD. X:  ",str(self.posini_x_land_list))
-            print("POSICIÓN INICIAL COORD Y:  ",str(self.posini_y_land_list))
-            print("POSICION FINAL COORD X: ",str(self.posfin_x_land_list))
-            print("POSICION FINAL COORD Y: ",str(self.posfin_y_land_list))
-            print("POSICIONES COORD X: ",str(positions_ordered_x))
-            print("POSICIONES COORD Y: ",str(positions_ordered_y))
-            print("LA GASOLINA : ",str(fuels_ordered))
+            # print("POSICIÓN INICIAL COORD. X:  ",str(self.posini_x_land_list))
+            # print("POSICIÓN INICIAL COORD Y:  ",str(self.posini_y_land_list))
+            # print("POSICION FINAL COORD X: ",str(self.posfin_x_land_list))
+            # print("POSICION FINAL COORD Y: ",str(self.posfin_y_land_list))
+            # print("POSICIONES COORD X: ",str(positions_ordered_x))
+            # print("POSICIONES COORD Y: ",str(positions_ordered_y))
+            # print("LA GASOLINA : ",str(fuels_ordered))
 
-            # ? ahora por asi decirlo serializo mis datos.
-            posinix = open('serializables/posicion_inicial_x.txt', 'w')
-            posiniy = open('serializables/posicion_inicial_y.txt', 'w')
-            posfinx = open('serializables/posicion_final_x.txt', 'w')
-            posfiny = open('serializables/posicion_final_y.txt', 'w')
-            posx = open('serializables/posicion_x.txt', 'w')
-            posy = open('serializables/posicion_y.txt', 'w')
-            gaso = open('serializables/la_Gasolina.txt', 'w')
+            # # ? ahora por asi decirlo serializo mis datos.
+            # posinix = open('serializables/posicion_inicial_x.txt', 'w')
+            # posiniy = open('serializables/posicion_inicial_y.txt', 'w')
+            # posfinx = open('serializables/posicion_final_x.txt', 'w')
+            # posfiny = open('serializables/posicion_final_y.txt', 'w')
+            # posx = open('serializables/posicion_x.txt', 'w')
+            # posy = open('serializables/posicion_y.txt', 'w')
+            # gaso = open('serializables/la_Gasolina.txt', 'w')
 
-            try:
-                with open('serializables/posicion_inicial_x.txt', 'w') as f:
-                    posinix.write(str(self.posini_x_land_list))
+            # try:
+            #     with open('serializables/posicion_inicial_x.txt', 'w') as f:
+            #         posinix.write(str(self.posini_x_land_list))
 
-                with open('serializables/posicion_inicial_y.txt', 'w') as f:
-                    posiniy.write(str(self.posini_y_land_list)) 
+            #     with open('serializables/posicion_inicial_y.txt', 'w') as f:
+            #         posiniy.write(str(self.posini_y_land_list)) 
 
-                with open('serializables/posicion_final_x.txt', 'w') as f:
-                    posfinx.write(str(self.posfin_x_land_list))
+            #     with open('serializables/posicion_final_x.txt', 'w') as f:
+            #         posfinx.write(str(self.posfin_x_land_list))
 
-                with open('serializables/posicion_final_y.txt', 'w') as f:
-                    posfiny.write(str(self.posfin_y_land_list))
+            #     with open('serializables/posicion_final_y.txt', 'w') as f:
+            #         posfiny.write(str(self.posfin_y_land_list))
 
-                with open('serializables/posicion_x.txt', 'w') as f:
-                    posx.write(str(self.position_x_list))
+            #     with open('serializables/posicion_x.txt', 'w') as f:
+            #         posx.write(str(self.position_x_list))
 
-                with open('serializables/posicion_y.txt', 'w') as f:
-                    posy.write(str(self.position_y_list)) 
+            #     with open('serializables/posicion_y.txt', 'w') as f:
+            #         posy.write(str(self.position_y_list)) 
 
-                with open('serializables\la_Gasolina.txt', 'w') as f:
-                    gaso.write(str(self.lagasolinaxd))
+            #     with open('serializables\la_Gasolina.txt', 'w') as f:
+            #         gaso.write(str(self.lagasolinaxd))
                                 
-            finally:
-                posinix.close()
-                posiniy.close()
-                posfinx.close()
-                posfiny.close()
-                posx.close()
-                posy.close()
+            # finally:
+            #     posinix.close()
+            #     posiniy.close()
+            #     posfinx.close()
+            #     posfiny.close()
+            #     posx.close()
+            #     posy.close()
             
             self.canpass1=True
             
@@ -202,35 +210,39 @@ class main_proyecto1():# * i create the principal class
 
 
 
-   
 
 
 
 
-
-
-
-
-
-
-    def ordenar_in_Nodes(self):
+    def ordenar_in_Nodes(self, value):
         Ld=matriz()
         listxtostr=str(self.dimension_list_x)
         print(listxtostr)
         listytostr=str(self.dimension_list_y)
         print(listytostr)
 
-        posinix=str(self.position_x_list)
+        posinixx=str(self.position_x_list)
         
         posiniy=str(self.position_y_list)
         
         gasofa=str(self.lagasolinaxd)
         
+        posini_x=str(self.posini_x_land_list)
+        posini_y=str(self.posini_y_land_list)
+        posfin_x=str(self.posfin_x_land_list)
+        posfin_y=str(self.posfin_y_land_list)
 
-        m=listxtostr.split(",")        
+        m=listxtostr.split(",") 
+        print(m)       
         n=listytostr.split(",")
-        x=posinix.split(",")
+        x=posinixx.split(",")
         y=posiniy.split(",")
+
+        xo=posini_x.split(",")
+        xf=posfin_x.split(",")
+        yo=posini_y.split(",")
+        yf=posfin_y.split(",")
+
         gas=gasofa.split(",")
         # acum=0        
         # #*prueba del comtador
@@ -244,21 +256,26 @@ class main_proyecto1():# * i create the principal class
         #         acum2 +=1                
         #     acum +=acum2
         
+        
+
         acum=0
+        print("     TERRENO NO. ",value+1)
+        print(m[value])
+        print(n[value])
+        print("Inicio: ",xo[value],",",yo[value])
+        print("Final: ",xf[value],",",yf[value])
         for i in range(self.contador_terrenos):
             acum2=0
-            print("TERRENO NO. ",i+1)
-            for l in range(acum,int(m[i])*int(n[i])+acum,1):                              
-                Ld.insert(x[l], y[l],gas[l])
+            print(acum)
+            for l in range(acum,int(m[i])*int(n[i])+acum): 
+                if int(value)==int(i):
+                    Ld.insert(x[l], y[l],gas[l])
                 acum2 +=1
             acum +=acum2
-            Ld.recorrerows()
 
-
-
-
-
-
+        Ld.recorrerows()
+        Ld.optimize_ways(xo[value],yo[value],xf[value],yf[value],m[value],n[value])  
+        
 
 
 
@@ -267,14 +284,85 @@ class main_proyecto1():# * i create the principal class
 
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄    PROCESA EL ARCHIVO XML    ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
     def processfile(self):      # ! 2.  Procesar Archivo --->
-        print("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Se está procesando el archivo  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
-        self.ordenar_in_Nodes()
+        print("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  PROCESO DEL ARCHIVO  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
+        print("\n \033[1;36m"+"Por favor seleccione el terreno que desea PROCESAR: "+'\033[0;m  \n')
+        #print(str(self.names_lands_list))
+        self.names_lands_list=str(self.names_lands_list)
+        #?aqui va el for para los terrenos
+        i=1
+        for l in self.names_lands_list.split(","):
+            print("\033[1;33m"+"        ",i,".  "+str(l)+" --->"+'\033[0;m \n')
+            i=i+1
+
+        # try:
+        self.terreno_PROCESAR_opcion=int(input("\033[1;37m"+"Por favor con el identificador seleccione el terreno que desea graficar: "+'\033[0;m')) 
+        listoption = self.names_lands_list.split(",")
+        option = listoption[int(self.terreno_PROCESAR_opcion)-1]
+        if option in self.names_lands_list.split(","):
+            
+            option=str(option)
+            #print("si esta y es: "+ option)
+            self.ordenar_in_Nodes(int(self.terreno_PROCESAR_opcion)-1)
+            #self.crear_grafico_selected()
+
+            # todo:  llamo a un método que me imprima en graphviz una imagen del terreno seleccionado
+
+
+        else:
+            print("\033[1;31m"+"El valor que ingresó no se encuentra, verifiquelo! :("+'\033[0;m')
+            self.processfile()
+        # except Exception as e:
+        #     print("\033[1;31m"+"Por favor ingrese un carácter válido :("+'\033[0;m')
+        #     print(e)
+        #     self.processfile()
     
     
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄    ESCRIBE EL ARCHIVO XML    ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
+    
+    def indent(self, elem, level=0):
+        i = "\n" + level*"  "
+        j = "\n" + (level-1)*"  "
+        if len(elem):
+            if not elem.text or not elem.text.strip():
+                elem.text = i + "  "
+            if not elem.tail or not elem.tail.strip():
+                elem.tail = i
+            for subelem in elem:
+                self.indent(subelem, level+1)
+            if not elem.tail or not elem.tail.strip():
+                elem.tail = j
+        else:
+            if level and (not elem.tail or not elem.tail.strip()):
+                elem.tail = j
+        return elem   
+        
+    def writexmlsalida(self, posini, posfin, ):
+                
+        terrenos = ET.Element('terrenos')
+        terrenos.set('name','terreno1')
+
+        posicioninicio = ET.SubElement(terrenos, 'posicioninicio')
+        xo = ET.SubElement(posicioninicio, 'x').text='1'
+        yo = ET.SubElement(posicioninicio, 'y').text='1'
+
+        posicionfin = ET.SubElement(terrenos, 'posicionfin')
+        xo = ET.SubElement(posicionfin, 'x').text='1'
+        yo = ET.SubElement(posicionfin, 'y').text='1'
+
+        combustible = ET.SubElement(terrenos, 'combustible').text='800'
+        posicion = ET.SubElement(terrenos, 'posicion').text='2'
+
+
+        archivo = open('Archivo de Salida.xml', 'w')
+
+        mydata=ET.tostring(self.indent(terrenos), encoding='utf-8').decode('utf-8')
+
+        archivo.write(mydata)
+    
     def write_outfile(self):    # ! 3.  Escribir Archivo de Salida --->
         print("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Escribiendo archivo de salida  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
-    
+        self.writexmlsalida()
+
     
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄      MUESTRA MIS DATOS       ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
     def show_my_data(self):     # ! 4.  Mostrar datos del estudiante --->
@@ -283,7 +371,8 @@ class main_proyecto1():# * i create the principal class
         print("\033[1;32m"+"  •  202000194"+'\033[0;m')
         print("\033[1;32m"+"  •  Introducción a la programación y computación 2 sección E"+'\033[0;m')
         print("\033[1;32m"+"  •  Ingeniería en Ciencias y Sistemas"+'\033[0;m')  
-        print("\033[1;32m"+"  •  4to. Semestre"+'\033[0;m \n')      
+        print("\033[1;32m"+"  •  4to. Semestre"+'\033[0;m \n')  
+        #self.position_Matriz.recorrerows()    
 
     
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄       GENERA GRÁFICA         ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
@@ -381,10 +470,6 @@ class main_proyecto1():# * i create the principal class
                 acc+=1         
                 
 
-
-
-
-
             if int(value)==int(i):
                 graphtext+="rank=same { "
             for w in range(acum,int(eme)*int(ene)+acum):
@@ -472,8 +557,8 @@ class main_proyecto1():# * i create the principal class
             # graphtext2 += "</TR>\n</TABLE>>];}"
             graphtext+=graphtext3
             graphtext+="}"
-
-            file=open("Graficos_generados/Grafico_"+str(int(value)+1)+".dot","w")
+            valor=str(int(value)+1)
+            file=open('Graficos_generados/Grafico_'+valor+'.dot','w')
             file.write(graphtext)
             file.close()
 
@@ -488,7 +573,7 @@ class main_proyecto1():# * i create the principal class
     def gen_graphic(self):      # ! 5.  Generar Gráfica --->
         print("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Generando Gráfica  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
         print("\n \033[1;36m"+"Por favor seleccione el terreno que desea graficar: "+'\033[0;m  \n')
-        print(str(self.names_lands_list))
+        #print(str(self.names_lands_list))
         self.names_lands_list=str(self.names_lands_list)
         #?aqui va el for para los terrenos
         i=1
@@ -512,8 +597,9 @@ class main_proyecto1():# * i create the principal class
             else:
                 print("\033[1;31m"+"El valor que ingresó no se encuentra, verifiquelo! :("+'\033[0;m')
                 self.gen_graphic()
-        except:
+        except Exception as e:
             print("\033[1;31m"+"Por favor ingrese un carácter válido :("+'\033[0;m')
+            print(e)
             self.gen_graphic()
 
 
@@ -550,9 +636,9 @@ class main_proyecto1():# * i create the principal class
                 self.cargarxml()                    
                 print("")
                 
-                
             if self.menu == 2: # ! 2.  Procesar Archivo --->
                 if self.canpass1:
+                    
                     self.processfile()
 
                     self.canpass2=True
@@ -572,11 +658,12 @@ class main_proyecto1():# * i create the principal class
                 self.show_my_data()
                     
             if self.menu == 5: # ! 5. Generar Gráfica  --->
-                if self.canpass3:
+                if self.canpass2:
 
                     self.gen_graphic()
                 else:
                     print("\033[1;31m"+"Por favor siga un orden :)"+'\033[0;m')
+                    print("\033[1;31m"+"    O Verifique que ya haya cargado terrenos primero, gracias"+'\033[0;m')
             
             if self.menu == 6: # ! 5.  Mostrar la documentación --->                
                 os.startfile(r"Documentacion\202000194_Ensayo_LAB.pdf")

@@ -1,0 +1,36 @@
+
+        graph grid{
+	            layout=dot   
+                fontcolor="white" 
+                label=" Terreno   4    "    
+                labelloc = "t"
+                bgcolor="blue:orange"    
+                edge [weight=1000 style=radial color=black ]
+                node [shape=circle style="filled"  color="green:cyan" gradientangle="315"]
+                
+                edge [weight=1000 style=bold color=black]
+
+                    1 [ label="2000" ]; 
+     2 [ label="2000" ]; 
+     3 [ label="2000" ]; 
+     4 [ label="2000" ]; 
+     5 [ label="2000" ]; 
+     6 [ label="2000" ]; 
+     7 [ label="2000" ]; 
+     8 [ label="2000" ]; 
+     9 [ label="2000" ]; 
+     10 [ label="2000" ]; 
+     11 [ label="2000" ]; 
+     12 [ label="2000" ]; 
+     13 [ label="2000" ]; 
+     14 [ label="2000" ]; 
+     15 [ label="2000" ]; 
+     16 [ label="2000" ]; 
+ rank=same { 1--2--3--4}
+ rank=same {5--6--7--8}
+ rank=same {9--10--11--12}
+ rank=same {13--14--15--16}
+1--5--9--13
+2--6--10--14
+3--7--11--15
+4--8--12--16}
