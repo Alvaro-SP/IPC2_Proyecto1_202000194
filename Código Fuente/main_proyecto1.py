@@ -70,8 +70,8 @@ class main_proyecto1():# * i create the principal class
        
         # ? Aqui se carga el archivo XML completo
         try:
-            #entrada=input("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Ingrese la ruta del Archivo  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
-            entrada=r"C:\Users\Sr. C\Desktop\Archivo prueba.xml"
+            entrada=input("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Ingrese la ruta del Archivo  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
+            # entrada=r"C:\Users\Sr. C\Desktop\Archivo prueba.xml"
             myxml=ET.parse(entrada)
 
             root=myxml.getroot()
