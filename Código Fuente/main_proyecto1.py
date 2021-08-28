@@ -1,5 +1,5 @@
 from xml.dom.minidom import DOMImplementation
-from xml.dom import minidom # !Here we have the imports of the libraries for to start the proyect :)
+from xml.dom import NOT_FOUND_ERR, minidom # !Here we have the imports of the libraries for to start the proyect :)
 from nodos import *
 from Headers import *
 #from graphviz import *
@@ -65,28 +65,56 @@ class main_proyecto1():# * i create the principal class
 
     contador_terrenos=0
 
-    
 
     def cargarxml(self):        # ! 1.  Cargar Archivo --->
        
         # ? Aqui se carga el archivo XML completo
         try:
-            myxml=minidom.parse(input("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Ingrese la ruta del Archivo  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n'))            
+            #entrada=input("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Ingrese la ruta del Archivo  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
+            entrada=r"C:\Users\Sr. C\Desktop\Archivo prueba.xml"
+            myxml=ET.parse(entrada)
+
+            root=myxml.getroot()
+
+            strmyxml=ET.tostring(root, encoding='utf8', method='xml')
+            
+            strmyxml=strmyxml.lower()
+           
+            myxml = minidom.parseString(strmyxml)
             
             lands_all=myxml.getElementsByTagName('terrenos')    # * se guarda en una variable todo el xml
-            
+                    
 
-            for lands in lands_all:    # ? FOR que recorre todos los terrenos            
-                land_all = lands.getElementsByTagName('terreno')  
+            for lands in lands_all:    # ? FOR que recorre todos los terrenos                      
+               
+                land_all = lands.getElementsByTagName('terreno') 
                 
+                # if len(land_all) == 0:                
+                #     land_all=myxml.getElementsByTagName('Terreno')
+                # elif len(land_all)==0:
+                #     land_all=myxml.getElementsByTagName('TERRENO')
+                # else:
+                #     land_all=myxml.getElementsByTagName('tERRENO')
+ 
+                # if land_all is None:
+                #     print(True)
+                # else:
+                    # print(False)
                 for land in land_all:    # ? For que recorre cada uno de los terrenos
                     position_Matriz=matriz()
                     
                     self.contador_terrenos += 1
                     land_name = land.getAttribute('nombre')
                     self.names_lands_list.My_Append(land_name) 
-                                        
-                    dimension = land.getElementsByTagName('dimension')[0]        # ? posicion inicial    
+
+                    dimension = land.getElementsByTagName('dimension')[0]        # ? posicion inicial
+                    # if len(lands_all) == "0":                
+                    #     dimension=myxml.getElementsByTagName('DIMENSION')[0] 
+                    # elif len(lands_all)=="0":
+                    #     dimension=myxml.getElementsByTagName('Dimension')[0] 
+                    # else:
+                    #     dimension=myxml.getElementsByTagName('dIMENSION')[0] 
+                        
                     dimension_x = dimension.getElementsByTagName('m')[0].firstChild.nodeValue                    
                     dimension_y = dimension.getElementsByTagName('n')[0].firstChild.nodeValue
                     
@@ -208,12 +236,6 @@ class main_proyecto1():# * i create the principal class
             self.console_menu()               
    
 
-
-
-
-
-
-
     def ordenar_in_Nodes(self, value):
         Ld=matriz()
         listxtostr=str(self.dimension_list_x)
@@ -274,14 +296,9 @@ class main_proyecto1():# * i create the principal class
             acum +=acum2
 
         Ld.recorrerows()
-        Ld.optimize_ways(xo[value],yo[value],xf[value],yf[value],m[value],n[value])  
+        Ld.optimize_ways(xo[value],yo[value],xf[value],yf[value],m[value],n[value])
+        self.writexmlsalida(value,xo[value],yo[value],xf[value],yf[value])
         
-
-
-
-
-
-
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄    PROCESA EL ARCHIVO XML    ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
     def processfile(self):      # ! 2.  Procesar Archivo --->
         print("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  PROCESO DEL ARCHIVO  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
@@ -294,29 +311,29 @@ class main_proyecto1():# * i create the principal class
             print("\033[1;33m"+"        ",i,".  "+str(l)+" --->"+'\033[0;m \n')
             i=i+1
 
-        # try:
-        self.terreno_PROCESAR_opcion=int(input("\033[1;37m"+"Por favor con el identificador seleccione el terreno que desea graficar: "+'\033[0;m')) 
-        listoption = self.names_lands_list.split(",")
-        option = listoption[int(self.terreno_PROCESAR_opcion)-1]
-        if option in self.names_lands_list.split(","):
-            
-            option=str(option)
-            #print("si esta y es: "+ option)
-            self.ordenar_in_Nodes(int(self.terreno_PROCESAR_opcion)-1)
-            #self.crear_grafico_selected()
+        try:
+            self.terreno_PROCESAR_opcion=int(input("\033[1;37m"+"Por favor con el identificador seleccione el terreno que desea graficar: "+'\033[0;m')) 
+            listoption = self.names_lands_list.split(",")
+            option = listoption[int(self.terreno_PROCESAR_opcion)-1]
+            if option in self.names_lands_list.split(","):
+                
+                option=str(option)
+                #print("si esta y es: "+ option)
+                self.ordenar_in_Nodes(int(self.terreno_PROCESAR_opcion)-1)
+                #self.crear_grafico_selected()
 
-            # todo:  llamo a un método que me imprima en graphviz una imagen del terreno seleccionado
+                # todo:  llamo a un método que me imprima en graphviz una imagen del terreno seleccionado
 
 
-        else:
-            print("\033[1;31m"+"El valor que ingresó no se encuentra, verifiquelo! :("+'\033[0;m')
+            else:
+                print("\033[1;31m"+"El valor que ingresó no se encuentra, verifiquelo! :("+'\033[0;m')
+                self.processfile()
+        except Exception as e:
+            print("\033[1;31m"+"Por favor ingrese un carácter válido :("+'\033[0;m')
+            print(e)
             self.processfile()
-        # except Exception as e:
-        #     print("\033[1;31m"+"Por favor ingrese un carácter válido :("+'\033[0;m')
-        #     print(e)
-        #     self.processfile()
     
-    
+
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄    ESCRIBE EL ARCHIVO XML    ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
     
     def indent(self, elem, level=0):
@@ -335,33 +352,119 @@ class main_proyecto1():# * i create the principal class
             if level and (not elem.tail or not elem.tail.strip()):
                 elem.tail = j
         return elem   
+
+    def writexmlsalida(self, value,xo, yo, xf,  yf):
+        global positions_ordered_x
+        global positions_ordered_y
+     
+        # global gasolinavale
+        global gasolinalista
+        global coordenadalistax
+        global coordenadalistay
+        global gasolinalistafull  
         
-    def writexmlsalida(self, posini, posfin, ):
+        posini_x=str(self.posini_x_land_list)
+        posini_y=str(self.posini_y_land_list)
+        posfin_x=str(self.posfin_x_land_list)
+        posfin_y=str(self.posfin_y_land_list)
+       
+        gasolistaa=str(gasolinalista).split(",")
+        coorlistax=str(coordenadalistax).split(",")
+        coorlistay=str(coordenadalistay).split(",")
+        gasolinalistafull=str(gasolinalistafull)
+
+
+        acum=0   
+        acum2=0  
+
+
                 
+        print("TERRENO NO. ",value+1)
         terrenos = ET.Element('terrenos')
-        terrenos.set('name','terreno1')
+
+        terrenos.set('name',self.names_lands_list.split(",")[value])
 
         posicioninicio = ET.SubElement(terrenos, 'posicioninicio')
-        xo = ET.SubElement(posicioninicio, 'x').text='1'
-        yo = ET.SubElement(posicioninicio, 'y').text='1'
+        ET.SubElement(posicioninicio, 'x').text=xo
+        ET.SubElement(posicioninicio, 'y').text=xf
 
         posicionfin = ET.SubElement(terrenos, 'posicionfin')
-        xo = ET.SubElement(posicionfin, 'x').text='1'
-        yo = ET.SubElement(posicionfin, 'y').text='1'
+        ET.SubElement(posicionfin, 'x').text=yo
+        ET.SubElement(posicionfin, 'y').text=yf
+    
+        ET.SubElement(terrenos, 'combustible').text=str(gasolinalistafull)
 
-        combustible = ET.SubElement(terrenos, 'combustible').text='800'
-        posicion = ET.SubElement(terrenos, 'posicion').text='2'
+        
+            
+        if len(coorlistax)== len(gasolistaa):
+                
+            for r in range(len(coorlistax)):
 
+                ET.SubElement(terrenos, 'posicion', x=str(coorlistax[int(r)]), y=str(coorlistay[r])).text=gasolistaa[r]
+    
+        
 
-        archivo = open('Archivo de Salida.xml', 'w')
+        # try:
+            
+        
+        valor=str(int(value)+1)
+        
+        archivo = open('XML_generados/archivo_Salida_'+valor+'.xml','w')
 
         mydata=ET.tostring(self.indent(terrenos), encoding='utf-8').decode('utf-8')
 
         archivo.write(mydata)
+            
+        # except Exception:
+        #     print("\033[1;31m"+"\nUps... algo salió mal :( podria haber un error, intentelo nevamente\n"+'\033[0;m')     
+        #     return False
     
+    def obtain_from_files_xml(self, value):
+        try:
+            os.startfile(r"XML_generados\archivo_Salida_"+str(int(value)+1)+".xml")
+            print("\033[1;32m"+"\nSe ha generado el XML " +str(int(value)+1)+ "con éxito... \n"+'\033[0;m')
+
+        except Exception as e:
+            print("\033[1;31m"+"\nNo se puede Generar un XML vacío (o que no haya procesado) asegurese haya procesado el terreno\n"+'\033[0;m')     
+            print(e)
+            self.console_menu()
+            return False
+
     def write_outfile(self):    # ! 3.  Escribir Archivo de Salida --->
         print("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Escribiendo archivo de salida  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
-        self.writexmlsalida()
+        
+
+        print("\n \033[1;36m"+"Por favor seleccione el terreno a escribir XML: "+'\033[0;m  \n')
+        #print(str(self.names_lands_list))
+        self.names_lands_list=str(self.names_lands_list)
+        #?aqui va el for para los terrenos
+        i=1
+        for l in self.names_lands_list.split(","):
+            print("\033[1;33m"+"        ",i,".  "+str(l)+" --->"+'\033[0;m \n')
+            i=i+1
+
+        # try:
+        self.terreno_PROCESAR_opcion=int(input("\033[1;37m"+"Por favor con el identificador seleccione el terreno que desea graficar: "+'\033[0;m')) 
+        listoption = self.names_lands_list.split(",")
+        option = listoption[int(self.terreno_PROCESAR_opcion)-1]
+        if option in self.names_lands_list.split(","):
+            
+            option=str(option)
+            #print("si esta y es: "+ option)
+            self.obtain_from_files_xml(int(self.terreno_PROCESAR_opcion)-1)
+            
+            #self.crear_grafico_selected()
+
+            # todo:  llamo a un método que me imprima en graphviz una imagen del terreno seleccionado
+
+
+        else:
+            print("\033[1;31m"+"El valor que ingresó no se encuentra, verifiquelo! :("+'\033[0;m')
+            self.write_outfile()
+        # except Exception as e:
+        #     print("\033[1;31m"+"Por favor ingrese un carácter válido :("+'\033[0;m')
+        #     print(e)
+            # self.write_outfile()
 
     
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄      MUESTRA MIS DATOS       ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
@@ -569,7 +672,6 @@ class main_proyecto1():# * i create the principal class
             print("\033[1;31m"+"\nUps... algo salió mal :( podria haber un error, intentelo nevamente\n"+'\033[0;m')     
             return False
 
-
     def gen_graphic(self):      # ! 5.  Generar Gráfica --->
         print("\n \033[1;33m"+"↓↓↓↓↓↓↓↓↓  Generando Gráfica  ↓↓↓↓↓↓↓↓↓"+'\033[0;m  \n')
         print("\n \033[1;36m"+"Por favor seleccione el terreno que desea graficar: "+'\033[0;m  \n')
@@ -603,28 +705,7 @@ class main_proyecto1():# * i create the principal class
             self.gen_graphic()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # todo▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄       GENERA GRÁFICA         ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 
     # todo:  CONDICIONES DEL MENU
     def Principal_menu(self):
         self.welcome()
@@ -637,6 +718,7 @@ class main_proyecto1():# * i create the principal class
                 print("")
                 
             if self.menu == 2: # ! 2.  Procesar Archivo --->
+                self.canpass1=True
                 if self.canpass1:
                     
                     self.processfile()
@@ -648,7 +730,7 @@ class main_proyecto1():# * i create the principal class
             if self.menu == 3: # ! 3.  Escribir Archivo de Salida --->
                 if self.canpass2:
 
-
+                    self.write_outfile()
 
                     self.canpass3=True
                 else:
