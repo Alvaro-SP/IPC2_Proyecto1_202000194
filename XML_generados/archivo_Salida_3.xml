@@ -1,0 +1,75 @@
+<terrenos name="terreno3">
+  <posicioninicio>
+    <x>9</x>
+  <y>16</y>
+  </posicioninicio>
+<posicionfin>
+    <x>7</x>
+  <y>5</y>
+  </posicionfin>
+<combustible>43</combustible>
+<posicion x="7" y="15">9</posicion>
+<posicion x="7" y="2">1</posicion>
+<posicion x="7" y="3">6</posicion>
+<posicion x="7" y="4">2</posicion>
+<posicion x="7" y="5">5</posicion>
+<posicion x="7" y="6">3</posicion>
+<posicion x="7" y="7">6</posicion>
+<posicion x="7" y="8">2</posicion>
+<posicion x="7" y="9">9</posicion>
+<posicion x="6" y="10">8</posicion>
+<posicion x="16" y="5">3</posicion>
+<posicion x="16" y="6">6</posicion>
+<posicion x="17" y="6">1</posicion>
+<posicion x="17" y="7">2</posicion>
+<posicion x="17" y="8">6</posicion>
+<posicion x="2" y="8">3</posicion>
+<posicion x="3" y="8">1</posicion>
+<posicion x="4" y="8">3</posicion>
+<posicion x="5" y="7">5</posicion>
+<posicion x="5" y="8">4</posicion>
+<posicion x="6" y="7">2</posicion>
+<posicion x="7" y="7">1</posicion>
+<posicion x="8" y="7">1</posicion>
+<posicion x="9" y="7">1</posicion>
+<posicion x="16" y="5">3</posicion>
+<posicion x="16" y="6">6</posicion>
+<posicion x="17" y="6">1</posicion>
+<posicion x="17" y="7">2</posicion>
+<posicion x="17" y="8">6</posicion>
+<posicion x="2" y="8">3</posicion>
+<posicion x="3" y="8">1</posicion>
+<posicion x="4" y="8">3</posicion>
+<posicion x="5" y="7">5</posicion>
+<posicion x="5" y="8">4</posicion>
+<posicion x="6" y="7">2</posicion>
+<posicion x="7" y="7">1</posicion>
+<posicion x="8" y="7">1</posicion>
+<posicion x="9" y="7">1</posicion>
+<posicion x="4" y="11">2</posicion>
+<posicion x="11" y="8">4</posicion>
+<posicion x="12" y="8">4</posicion>
+<posicion x="13" y="8">3</posicion>
+<posicion x="14" y="3">1</posicion>
+<posicion x="14" y="4">7</posicion>
+<posicion x="14" y="5">3</posicion>
+<posicion x="14" y="6">4</posicion>
+<posicion x="14" y="7">1</posicion>
+<posicion x="14" y="8">3</posicion>
+<posicion x="2" y="3">1</posicion>
+<posicion x="3" y="3">9</posicion>
+<posicion x="16" y="5">3</posicion>
+<posicion x="16" y="6">6</posicion>
+<posicion x="17" y="6">1</posicion>
+<posicion x="17" y="7">2</posicion>
+<posicion x="17" y="8">6</posicion>
+<posicion x="2" y="8">3</posicion>
+<posicion x="3" y="8">1</posicion>
+<posicion x="4" y="8">3</posicion>
+<posicion x="5" y="7">5</posicion>
+<posicion x="5" y="8">4</posicion>
+<posicion x="6" y="7">2</posicion>
+<posicion x="7" y="7">1</posicion>
+<posicion x="8" y="7">1</posicion>
+<posicion x="9" y="7">1</posicion>
+</terrenos>

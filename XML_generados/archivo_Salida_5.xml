@@ -1,0 +1,22 @@
+<terrenos name="terreno5">
+  <posicioninicio>
+    <x>3</x>
+  <y>11</y>
+  </posicioninicio>
+<posicionfin>
+    <x>3</x>
+  <y>8</y>
+  </posicionfin>
+<combustible>40</combustible>
+<posicion x="11" y="8">4</posicion>
+<posicion x="12" y="8">4</posicion>
+<posicion x="13" y="8">3</posicion>
+<posicion x="14" y="3">1</posicion>
+<posicion x="14" y="4">7</posicion>
+<posicion x="14" y="5">3</posicion>
+<posicion x="14" y="6">4</posicion>
+<posicion x="14" y="7">1</posicion>
+<posicion x="14" y="8">3</posicion>
+<posicion x="2" y="3">1</posicion>
+<posicion x="3" y="3">9</posicion>
+</terrenos>

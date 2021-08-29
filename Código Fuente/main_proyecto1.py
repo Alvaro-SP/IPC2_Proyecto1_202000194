@@ -74,6 +74,7 @@ class main_proyecto1():# * i create the principal class
             # entrada=r"C:\Users\Sr. C\Desktop\Archivo prueba.xml"
             myxml=ET.parse(entrada)
 
+
             root=myxml.getroot()
 
             strmyxml=ET.tostring(root, encoding='utf8', method='xml')
@@ -404,20 +405,20 @@ class main_proyecto1():# * i create the principal class
     
         
 
-        # try:
+        try:
             
-        
-        valor=str(int(value)+1)
-        
-        archivo = open('XML_generados/archivo_Salida_'+valor+'.xml','w')
-
-        mydata=ET.tostring(self.indent(terrenos), encoding='utf-8').decode('utf-8')
-
-        archivo.write(mydata)
             
-        # except Exception:
-        #     print("\033[1;31m"+"\nUps... algo salió mal :( podria haber un error, intentelo nevamente\n"+'\033[0;m')     
-        #     return False
+            valor=str(int(value)+1)
+            
+            archivo = open('XML_generados/archivo_Salida_'+valor+'.xml','w')
+
+            mydata=ET.tostring(self.indent(terrenos), encoding='utf-8').decode('utf-8')
+
+            archivo.write(mydata)
+            
+        except Exception:
+            print("\033[1;31m"+"\nUps... No se puede generar el archivo, talvez no lo ha procesado o podria haber un error, intentelo nevamente :( \n"+'\033[0;m')     
+            return False
     
     def obtain_from_files_xml(self, value):
         try:
@@ -443,28 +444,28 @@ class main_proyecto1():# * i create the principal class
             print("\033[1;33m"+"        ",i,".  "+str(l)+" --->"+'\033[0;m \n')
             i=i+1
 
-        # try:
-        self.terreno_PROCESAR_opcion=int(input("\033[1;37m"+"Por favor con el identificador seleccione el terreno que desea graficar: "+'\033[0;m')) 
-        listoption = self.names_lands_list.split(",")
-        option = listoption[int(self.terreno_PROCESAR_opcion)-1]
-        if option in self.names_lands_list.split(","):
-            
-            option=str(option)
-            #print("si esta y es: "+ option)
-            self.obtain_from_files_xml(int(self.terreno_PROCESAR_opcion)-1)
-            
-            #self.crear_grafico_selected()
+        try:
+            self.terreno_PROCESAR_opcion=int(input("\033[1;37m"+"Por favor con el identificador seleccione el terreno que desea graficar: "+'\033[0;m')) 
+            listoption = self.names_lands_list.split(",")
+            option = listoption[int(self.terreno_PROCESAR_opcion)-1]
+            if option in self.names_lands_list.split(","):
+                
+                option=str(option)
+                #print("si esta y es: "+ option)
+                self.obtain_from_files_xml(int(self.terreno_PROCESAR_opcion)-1)
+                
+                #self.crear_grafico_selected()
 
-            # todo:  llamo a un método que me imprima en graphviz una imagen del terreno seleccionado
+                # todo:  llamo a un método que me imprima en graphviz una imagen del terreno seleccionado
 
 
-        else:
-            print("\033[1;31m"+"El valor que ingresó no se encuentra, verifiquelo! :("+'\033[0;m')
+            else:
+                print("\033[1;31m"+"El valor que ingresó no se encuentra, verifiquelo! :("+'\033[0;m')
+                self.write_outfile()
+        except Exception as e:
+            print("\033[1;31m"+"Por favor ingrese un carácter válido :("+'\033[0;m')
+            print(e)
             self.write_outfile()
-        # except Exception as e:
-        #     print("\033[1;31m"+"Por favor ingrese un carácter válido :("+'\033[0;m')
-        #     print(e)
-            # self.write_outfile()
 
     
     # *▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄      MUESTRA MIS DATOS       ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄ ▀▄▀▄ ▀▄▀▄ 

@@ -176,7 +176,7 @@ class matriz():
         global coordenadalistay
         global gasolinalistafull
         
-
+        gasolinavale=0
 
         g = Grafica()
 
@@ -310,7 +310,7 @@ class matriz():
                 current=current.derecha
 
             erow=erow.Next  
-        g.imprimirGrafica()
+        
 
         print("\033[1;37m"+"\n       POSICIÓN INICIAL   (",start,")"+'\033[0;m')
 
@@ -328,6 +328,7 @@ class matriz():
 
 
         wayslist,fuelobtain=g.camino(start, end)
+        g.imprimirGrafica()
         
         print(wayslist) #? aqui va el eje x y Y de donde inicia y termina el recorrido
         print("\033[1;37m"+"\n▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄"+'\033[0;m')
@@ -336,7 +337,7 @@ class matriz():
         time.sleep(1)
         
         print("\033[1;36m"+"\n\n             El valor del combustible es:  ... ***"+'\033[0;m')
-
+        print(fuelobtain)
         erow=self.eRows.First
         while erow!=None:
             current=erow.accessNode
